@@ -1,0 +1,235 @@
+body {
+    background-color: #f5f5f5;
+    user-select: none;
+}
+.center-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+}
+button {
+    margin: 0 10px;
+}
+td {
+    border: 1px solid;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    /*cursor: pointer;*/
+}
+img {
+    height: 100%;
+}
+.level1::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #00000c;
+    border: 10px black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+    z-index: 1;
+}
+.level2::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #00ff0c;
+    border: 10px black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+    z-index: 1;
+}
+#board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+/* 盤面の反転  */
+#game.sente #board {
+    transform: rotate(0deg);
+}
+#game.gote #board {
+    transform: rotate(180deg);
+}
+/* 相手駒の反転 */
+#game.sente .opponent img {
+    transform: rotate(180deg);
+}
+#game.gote .myself img {
+    transform: rotate(180deg);
+}
+#game.sente .opponent.level2::after {
+    transform: rotate(180deg);
+}
+#game.gote .myself.level2::after {
+    transform: rotate(180deg);
+}
+/** ------手持ちエリア-------------  */
+.hand {
+    position: relative;
+    left: 50px;
+    display: flex;
+}
+.hand div {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+.hand div::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #00000c;
+    boarder: 10px black;
+
+    opacity: 0.3;
+    z-index: 1;
+}
+.hand div::after {
+    content: attr(hand-num);
+    display: inline-block;
+    position: relative;
+    top: -50px;
+    left: 35px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-size: 1px;
+    font-weight: bold;
+    line-height: 20px;
+    z-index: 2;
+}
+
+.hand img {
+    height: 50px;
+}
+#opponentHand {
+    width: 450px;
+    top: 40px;
+    border: 1px solid;
+    transform: rotate(180deg);
+}
+#myHand {
+    width: 450px;
+    top: -40px;
+    border: 1px solid;
+}
+/** ------選択モード時-------------  */
+/* 自分の駒 ホバー時 */
+#game.my-turn.mode-select td.myself.level2:hover {
+    background-color: #529ddd;
+}
+#game.my-turn.mode-select td.myself.level1:hover {
+    background-color: #529ddd;
+}
+#game.my-turn.mode-select td.myself:hover {
+    background-color: #529ddd;
+    cursor: pointer;
+}
+#game.my-turn.mode-select td.myself.empty:hover {
+    background-color: rgba(0, 0, 0, 0);
+    cursor: default;
+}
+/* 空の場合ホバーしない */
+#game.my-turn.mode-select .myself img:hover {
+    opacity:0.5;
+    transition:0.3s;
+}
+#game.my-turn.mode-select .myself.empty img:hover {
+    opacity:1;
+}
+/* 手持ちのホバー */
+#game.my-turn.mode-select #myHand .hand-piece img:hover {
+    background-color: #529ddd;
+    cursor: pointer;
+}
+#game.my-turn.mode-select #myHand .hand-piece:hover {
+    background-color: #529ddd;
+    cursor: pointer;
+}
+
+/** ------移動モード時-------------  */
+/** 移動可能範囲 */
+#game.my-turn.mode-move td.canMove {
+    background-color: #f7e9a2;
+    cursor: pointer;
+}
+#game.my-turn.mode-move .canMove img {
+    opacity:0.5;
+}
+
+/** 移動可能範囲 ホバー時 */
+#game.my-turn.mode-move td.myself.canMove:hover {
+    background-color: #529ddd;
+    cursor: pointer;
+}
+#game.my-turn.mode-move td.opponent.canMove:hover {/* 移動可能範囲は敵味方関係なく移動可能 */
+    background-color: #529ddd;
+    cursor: pointer;
+}
+#game.my-turn.mode-move img.canMove:hover {
+    opacity:0.5;
+    transition:0.3s;
+}
+
+/*  クリックセルの色変更 */
+/*
+#game.my-turn.mode-move td.clickedCell {
+    background-color: #288ee4;
+}
+#game.my-turn.mode-move .clickedCell img {
+	opacity:0.5;
+	transition:0.3s;
+    cursor: default;
+}
+*/
+.clicked-cell img {
+	opacity:0.5;
+	transition:0.3s;
+    cursor: default;
+}
+.clicked-cell {
+    background-color: #288ee4;
+}
+modal fade {
+    display: none;
+}
+
+/* 最後に移動した場所 */
+.last-moved {
+  background-color: #fb00231a;
+  z-index: 2;
+}
+/* 移動した駒 */
+.moved {
+  animation-name: move;
+  animation-duration: 1s;
+}
+
+/* 移動するアニメーション */
+@keyframes move {
+  from { left: 0; top: 0; }
+  to { left: 160px; top: 160px; }
+}

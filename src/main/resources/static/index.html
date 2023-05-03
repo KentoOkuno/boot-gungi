@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>軍議 対戦</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12">
+        <table id="info" class="table table-striped">
+            <thead>
+            <!--            <tr>-->
+            <!--                <div class="center-area">-->
+            <!--                    <label for="connect">Let's Play 軍議 !!</label>-->
+            <!--                </div>-->
+            <!--            </tr>-->
+            <tr>
+                <div class="center-area">
+                    <button id="connect" class="btn btn-default start-button" type="submit">開始</button>
+                    <button id="reMatch" class="btn btn-default end-button" type="submit" style="display:none">再戦
+                    </button>
+                    <button id="surrender" class="btn btn-default end-button" type="submit" style="display:none">降参
+                    </button>
+                    <button id="disconnect" class="btn btn-default end-button" type="submit" style="display:none">終了
+                    </button>
+
+                </div>
+            </tr>
+            <tr>
+                <th>
+                    <!--                    <div>プレイヤー1:</div>-->
+                    <!--                    <div id="player1Id"></div>-->
+                    <!--                    <div>名前:</div>-->
+                    <!--                    <div id="player1Name"></div>-->
+                    <div id="message"></div>
+                </th>
+            </tr>
+            </thead>
+            <!--            <tbody id="board">-->
+            <!--            </tbody>-->
+        </table>
+        <div id="game">
+            <div id="opponentHand" class="hand"></div>
+            <table>
+                <tbody id="board"></tbody>
+            </table>
+            <div id="myHand" class="hand"></div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- モーダル・ダイアログ -->
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">駒を取るかツケるか選んでください</h5>
+            </div>
+            <div class="modal-footer">
+                <button id="exe-take-button" type="button" class="btn btn-primary">取る
+                </button>
+                <button id="exe-tsuke-button" type="button" class="btn btn-primary">ツケる</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
